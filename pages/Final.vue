@@ -7,15 +7,25 @@
         <h1 class="final__title2">¡Gracias!</h1>
         <h1 class="final__title2">Tu reserva está en proceso</h1>
         <p class="final__description">La matrícula solo será efectiva una vez que se haya recibido el Pago por tarjeta o transferencia</p>
-        <div class="final__button">
-            <button class="button-1"><NuxtLink class="link" to="/">Volver a home</NuxtLink></button>
-            <button class="button-2"><NuxtLink class="link" to="/step6">Volver atrás</NuxtLink></button>
+        <div class="final-buttons">
+            <div @click="$router.push('/Final')" class="final-buttons__button">
+              <Button :text="'Siguiente'" />
+            </div>
+            <div @click="$router.push('/step6')" class="final-buttons__button">
+              <Button :type="3" :text="'Atrás'" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: 'Final'
+    }
+  },
+}
 </script>
 
 <style lang="scss">
@@ -29,6 +39,7 @@ export default {}
     .final-title {
         display: flex;
         justify-content: center;
+        align-items: center;
         font-size: 38px;
         margin-bottom: 60px;
 
@@ -36,10 +47,12 @@ export default {}
             display: flex;
             align-items: flex-end;
             margin-left: 10px;
+            font-size: 50px;
+            font-weight: 800;
         }
 
         .final__img {
-            width: 10%;
+            width: 4%;
         }
     }
 
@@ -56,34 +69,18 @@ export default {}
         font-weight: 500;
     }
 
-    .final__button {
-        display: flex;
-        flex-direction: column;
+    .final-buttons {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; 
 
-        .button-1 {
-            margin: 0px auto;
-            margin-bottom: 20px;
-            width: 16%;
-            padding: 12px 14px;
-            background-color: #0BC6FE;
-            border: 0px;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .button-2 {
-            margin: 0px auto;
-            margin-bottom: 20px;
-            width: 16%;
-            padding: 10px 14px;
-            background-color: transparent;
-            border: 0px;
-            color: #0BC6FE;
-            font-size: 18px;
-            font-weight: 800;
-        }
+      &__button {
+        width: 20%;
+        height: 50px;
+        margin: 10px;
+      } 
     }
 }
 </style>

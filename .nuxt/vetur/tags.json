@@ -1,0 +1,14 @@
+{
+  "Button": {
+    "description": "Auto imported from components/Button.vue"
+  },
+  "InputPrincipal": {
+    "description": "Auto imported from components/InputPrincipal.vue"
+  },
+  "Select": {
+    "description": "Auto imported from components/Select.vue"
+  },
+  "Steps": {
+    "description": "Auto imported from components/Steps.vue"
+  }
+}

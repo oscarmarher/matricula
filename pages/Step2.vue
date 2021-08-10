@@ -9,14 +9,18 @@
         <h3 class="modalidad__title">Modalidad</h3>
         <p class="modalidad__description">(Selecciona una opción)</p>
           <div class="modalidad-buttons" v-if="modalidadesList">
-            <button v-on:click="onChangeModalidad" v-for="modalidad in modalidadesList" :key="modalidad" :value='modalidad' class="modalidad__button">{{modalidad}}</button>
+            <div v-on:click="onChangeModalidad" v-for="modalidad in modalidadesList" :key="modalidad" :value='modalidad' class="modalidad__button">
+              <Button :type="2" :text="modalidad" />
+            </div>
           </div>  
       </div>
       <div class="horario">
         <h3 class="horario__title">Horario</h3>
         <p class="horario__description">(Selecciona una opción)</p>
           <div class="horario-buttons" v-if="horariosList">
-            <button v-on:click="onChangeHorario" v-for="horario in horariosList" :key="horario" :value='horario' class="horario__button">{{horario}}</button>
+            <div v-on:click="onChangeHorario" v-for="horario in horariosList" :key="horario" :value='horario' class="horario__button">
+              <Button :type="2" :text="horario" />
+            </div>
           </div>
       </div>
         <div class="step-buttons">
@@ -35,6 +39,11 @@
 import Steps from '../components/Steps';
 import {db} from '~/plugins/firebase.js';
 export default {
+  head() {
+    return {
+      title: 'Paso 2'
+    }
+  },
   components: {
     Steps
   },
@@ -96,26 +105,27 @@ export default {
     display: flex;
 
     .step-2{
-        width: 65%;
-        margin: 60px 0px;
-
-        .step-2__title {
-            width: 90%;
-            padding-left: 100px;
-            margin: 40px auto;
-            font-weight: 700;
-            font-size: 36px;
-            color: #577294;
-        }
+      width: 70%;
+      padding: 0px 100px;
+      margin: 60px 0px;
+      
+      .step-2__title {
+        text-align: center;
+        width: 100%;
+        margin: 40px auto;
+        font-weight: 700;
+        font-size: 36px;
+        color: #577294;
+      }
         .modalidad {
             text-align: justify;
-            width: 90%;
+            width: 100%;
             margin: 50px auto;
-            padding-left: 100px;
             color: #577294;
 
             .modalidad__title {
                 font-size: 20px;
+                font-weight: 600;
             }
 
             .modalidad__description {
@@ -131,12 +141,11 @@ export default {
                     font-size: 14px;
                     font-weight: 700;
                     color: #577294;
-                    width: 40%;
+                    width: 48%;
                     margin-top: 10px;
                     margin-right: 10px;
-                    height: 40px;
+                    height: 50px;
                     background-color: #fff;
-                    border: 1px solid #577294;
                     border-radius: 10px;
                 }
             }
@@ -144,13 +153,13 @@ export default {
 
         .horario {
             text-align: justify;
-            width: 90%;
+            width: 100%;
             margin: 50px auto;
-            padding-left: 100px;
             color: #577294;
 
             .horario__title {
                 font-size: 20px;
+                font-weight: 600;
             }
 
             .horario__description {
@@ -168,9 +177,8 @@ export default {
                     font-weight: 700;
                     color: #577294;
                     margin-top: 10px;
-                    height: 40px;
+                    height: 50px;
                     background-color: #fff;
-                    border: 1px solid #577294;
                     border-radius: 10px;
                 }
             }
@@ -185,7 +193,7 @@ export default {
           &__button {
             width: 20%;
             height: 50px;
-            margin: 20px;
+            margin: 10px;
           } 
         }
     }

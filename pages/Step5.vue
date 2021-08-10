@@ -10,58 +10,46 @@
             <h3 class="direction__title">Comunidad de Exámen</h3>
             <p class="direction__description">(Selecciona una opción)</p>
             
-            <form class="direction__form">
-                  <select class="direction__select" v-if="comunidadesList" v-on:change="onChangeComunidad">
-                    <option v-for="comunidad in comunidadesList" class="direction__option" :key="comunidad" :value="comunidad">{{comunidad}}</option>
-                  </select>
-            </form>
+            <Select @getData="onChangeComunidad" :dataList="comunidadesList" />
           </div>
 
           <div class="direction__box2">
             <p class="direction__name">Dirección</p>
-            <form class="direction__form">
-                <input
-                type="text" 
-                placeholder="Ej: Calle Ramiro de Maxtu, 10, 4D" 
-                class="direction__input"/>
-            </form>
+            <div class="inputPrincipal">
+                <InputPrincipal :placeholder="'Ej: Calle Ramiro de Maxtu, 10, 4D'" :name="'address'" :type="'text'" @getData="onChangeAddress" />
+            </div>
           </div>
 
           <div class="direction__box3">
             <div class="direction__box">
                 <p class="direction__name">Localidad</p>
-                <form class="direction__form">
-                    <input
-                    type="text" 
-                    placeholder="Ej: Madrid" 
-                    class="direction__input2"/>
-                </form>
+                <div class="inputPrincipal">
+                    <InputPrincipal :placeholder="'Madrid'" :name="'localidad'" :type="'text'" @getData="onChangeLocalidad" />
+                </div>
             </div>
 
             <div class="direction__box">
                 <p class="direction__name">Provincia</p>
-                <form class="direction__form">
-                    <input
-                    type="text" 
-                    placeholder="Ej: Madrid" 
-                    class="direction__input2"/>
-                </form>
+                <div class="inputPrincipal">
+                    <InputPrincipal :placeholder="'Madrid'" :name="'provincia'" :type="'text'" />
+                </div>
             </div>
 
             <div class="direction__box">
                 <p class="direction__name">Código Postal</p>
-                <form class="direction__form">
-                    <input
-                    type="text" 
-                    placeholder="Ej: 28040" 
-                    class="direction__input2"/>
-                </form>
+                <div class="inputPrincipal">
+                    <InputPrincipal :placeholder="'28040'" :name="'postalCode'" :type="'number'" @getData="onChangePostalCode" />
+                </div>
             </div>
           </div>
 
             <div class="step-buttons">
-              <button class="button-1"><NuxtLink class="link" to="/step6">Siguiente</NuxtLink></button>
-              <button class="button-2"><NuxtLink class="link-two" to="/step4">Atrás</NuxtLink></button>
+                <div @click="$router.push('/step6')" class="step-buttons__button">
+                  <Button :text="'Siguiente'" />
+                </div>
+                <div @click="$router.push('/step4')" class="step-buttons__button">
+                  <Button :type="3" :text="'Atrás'" />
+                </div>
             </div>
         </div>
       </div>
@@ -71,6 +59,11 @@
 import Steps from '../components/Steps';
 import {db} from '~/plugins/firebase.js';
 export default {
+  head() {
+    return {
+      title: 'Paso 5'
+    }
+  },
   components: {
     Steps
   },
@@ -80,8 +73,8 @@ export default {
     }
   },
   methods: {
-    onChangeComunidad(ev) {
-      this.$store.commit('saveComunidad', ev.target.value);
+    onChangeComunidad(value) {
+      this.$store.dispatch('saveComunidad', value);
     },
     async getComunidades() {
       try {
@@ -106,6 +99,12 @@ export default {
 </script>
 
 <style lang="scss">
+.inputPrincipal {
+    width: 100%;
+    height: 60px;
+    margin: 20px 0px;
+}
+
 .navbar {
     width: 30%;
 }
@@ -115,10 +114,10 @@ export default {
     .step-5{
         width: 70%;
         margin: 0px auto;
-        margin-left: 100px;
+        padding: 0px 100px;
 
         .step-5__title {
-            width: 70%;
+            width: 100%;
             margin: 60px auto;
             text-align: center;
             font-weight: 700;
@@ -128,7 +127,7 @@ export default {
 
         .direction-box1 {
             text-align: justify;
-            width: 90%;
+            width: 100%;
             margin: 30px auto;
 
             .direction__title {
@@ -164,7 +163,7 @@ export default {
 
         .direction__box2 {
             text-align: justify;
-            width: 90%;
+            width: 100%;
             margin: 60px auto;
 
             .direction__name {
@@ -190,14 +189,14 @@ export default {
 
         .direction__box3 {
             display: flex;
-            width: 90%;
+            width: 100%;
             margin: 50px auto;
             text-align: justify;
 
             .direction__box {
-                flex: 1;
-                width: 30%;
-
+                width: 100%;
+                margin-right: 10px;
+                
                 .direction__name {
                     font-size: 20px;
                     color: #577294;
@@ -221,34 +220,17 @@ export default {
         }
 
         .step-buttons {
-            margin-top: 80px;
-            display: flex;
-            flex-direction: column;
-    
-            .button-1 {
-                margin: 0px auto;
-                margin-bottom: 20px;
-                width: 25%;
-                padding: 12px 12px;
-                background-color: #0BC6FE;
-                border: 0px;
-                border-radius: 10px;
-                color: #fff;
-                font-size: 16px;
-                font-weight: 800;
-            }
-    
-            .button-2 {
-                margin: 0px auto;
-                margin-bottom: 0px;
-                width: 16%;
-                padding: 6px 10px;
-                background-color: transparent;
-                border: 0px;
-                color: #0BC6FE;
-                font-size: 16px;
-                font-weight: 800;
-            }
+          margin-top: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column; 
+
+          &__button {
+            width: 20%;
+            height: 50px;
+            margin: 10px;
+          } 
         }
     }
 }

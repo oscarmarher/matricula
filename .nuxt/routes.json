@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Final",
+    "path": "/Final",
+    "component": "/home/oscar/magister/magister-matricula/pages/Final.vue",
+    "chunkName": "pages/Final"
+  },
+  {
+    "name": "Step1",
+    "path": "/Step1",
+    "component": "/home/oscar/magister/magister-matricula/pages/Step1.vue",
+    "chunkName": "pages/Step1"
+  },
+  {
+    "name": "Step2",
+    "path": "/Step2",
+    "component": "/home/oscar/magister/magister-matricula/pages/Step2.vue",
+    "chunkName": "pages/Step2"
+  },
+  {
+    "name": "Step3",
+    "path": "/Step3",
+    "component": "/home/oscar/magister/magister-matricula/pages/Step3.vue",
+    "chunkName": "pages/Step3"
+  },
+  {
+    "name": "Step4",
+    "path": "/Step4",
+    "component": "/home/oscar/magister/magister-matricula/pages/Step4.vue",
+    "chunkName": "pages/Step4"
+  },
+  {
+    "name": "Step5",
+    "path": "/Step5",
+    "component": "/home/oscar/magister/magister-matricula/pages/Step5.vue",
+    "chunkName": "pages/Step5"
+  },
+  {
+    "name": "Step6",
+    "path": "/Step6",
+    "component": "/home/oscar/magister/magister-matricula/pages/Step6.vue",
+    "chunkName": "pages/Step6"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/oscar/magister/magister-matricula/pages/index.vue",
+    "chunkName": "pages/index"
+  }
+]

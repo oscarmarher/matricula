@@ -3,31 +3,19 @@
     <div class="navbar">
       <Steps />
     </div>
-    <div class="step-1">
-      <div class="step-1__box">
-      <h1 class="step-1__title">¿En qué te quieres especializar?</h1>
+    <div class="step1__content">
+      <div class="step1__content__box">
+      <h1 class="step1__content__title">¿En qué te quieres especializar?</h1>
       <div class="rama-provincia">
         <div class="rama">
           <h3 class="rama__title">Rama</h3>
           <p class="rama__description">(Selecciona una opción)</p>
-          <form class="rama__form" v-if="ramasList">
-            <select class="form__select" v-on:change="onChangeRama" v-model="rama">
-              <option v-for="rama in ramasList" :key="rama" class="form__option">
-                {{rama}}
-              </option>
-            </select>  
-          </form>
+          <Select @getData="onChangeRama" :dataList="ramasList" />
         </div>
         <div class="provincia">
           <h3 class="provincia__title">Provincia</h3>
           <p class="provincia__description">(Selecciona una opción)</p>
-          <form class="provincia__form" v-if="provinciasList">
-            <select class="form__select" v-on:change="onChangeProvincia" v-model="provincia">
-              <option  v-for="provincia in provinciasList" :key="provincia" class="form__option">
-                {{provincia}}
-              </option>
-            </select>
-          </form>
+          <Select @getData="onChangeProvincia" :dataList="provinciasList" />
         </div>
       </div>
       <div class="alumno">
@@ -48,8 +36,8 @@
       <div class="alumno">
         <p class="alumno__description">Entrega de material</p>
         <p class="alumno__consulta">Consulta condiciones</p>
-        <div class="alumno__buttons">
-          <button class="alumno__button button__four">Material mes a mes</button>
+        <div class="alumno__buttons__button">
+          <Button :type="2" :text="'Material, mes a mes'" />
         </div>
       </div>
       <div @click="$router.push('/step2')" class="step1__buttons__button">
@@ -62,12 +50,19 @@
 
 <script>
 import Button from '~/components/Button';
+import Select from '~/components/Select';
 import Steps from '~/components/Steps';
 import {db} from '~/plugins/firebase.js';
 export default {
+  head() {
+    return {
+      title: 'Paso 1'
+    }
+  },
   components: {
     Button,
-    Steps
+    Steps,
+    Select
   },
   data() {
     return {
@@ -78,11 +73,11 @@ export default {
     }
   },
   methods: {
-    onChangeRama(ev) {
-      this.$store.commit('saveRama', this.rama);
+    onChangeRama(value) {
+      this.$store.dispatch('saveRama', value);
     },
-    onChangeProvincia(ev) {
-      this.$store.commit('saveProvincia', this.provincia);
+    onChangeProvincia(value) {
+      this.$store.dispatch('saveProvincia', value);
     },
 
     async getRamas() {
@@ -132,6 +127,7 @@ export default {
 .navbar {
   width: 30%;
 }
+
 .step1 {
   display: flex;
 
@@ -146,12 +142,12 @@ export default {
     }
   }
 
-  .step-1{
+  &__content{
     width: 70%;
     margin: 0px 0px;
 
     &__box {
-      width: 90%;
+      width: 80%;
       margin: 100px auto;
     }
 
@@ -164,51 +160,38 @@ export default {
 
 .rama-provincia {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin: 50px auto;
   color: $darkBlue;
-  
-  .form__select {
-    background-color: $white;
-    font-weight: 500;
-    font-size: 16px;
-    color: $silver;
-    height: 50px;
-    width: 90%;
-    border: 1px solid  $darkBlue;
-    border-radius: 10px;
-    
-    .form__option {
-      height: 40px;
-      border: 2px solid  $darkBlue;
-      border-radius: 10px;
-    }
-  }
 
 .rama {
-  flex: 1;
+  width: 48%;
   justify-content: center;
   align-items: center;
   
   &__description {
     margin: 20px 0px;
+    font-size: 20px;
   }
 
   &__title {
     font-weight: 700;
+    font-size: 20px;
   }
 }
 
 .provincia {
-  flex: 1;
+  width: 48%;
   text-align: justify;
 
   &__description {
     margin: 20px 0px;
+    font-size: 20px;
   }
 
   &__title {
     font-weight: 700;
+    font-size: 20px;
   }
 }
 }

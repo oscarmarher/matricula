@@ -10,14 +10,20 @@
             <h3 class="tarifa__title">Tarifas</h3>
             <p class="tarifa__description">(Selecciona una opción)</p>
               <div class="tarifa-buttons" v-if="tarifasList">
-                  <button v-on:click="onChangeTarifa" v-for="tarifa in tarifasList" :key='tarifa' :value="tarifa" class="tarifa__button">{{tarifa}}</button>
+                <div v-on:click="onChangeTarifa" v-for="tarifa in tarifasList" :key='tarifa' :value="tarifa" class="tarifa__button">
+                  <Button :type="2" :text="tarifa" />
+                </div>
               </div>
           </div>
 
-            <div class="step-buttons">
-              <button class="button-1"><NuxtLink class="Link" to="/step4">Siguiente</NuxtLink></button>
-              <button class="button-2"><NuxtLink class="Link-two" to="/step2">Atrás</NuxtLink></button>
-            </div>
+        <div class="step-buttons">
+          <div @click="$router.push('/step4')" class="step-buttons__button">
+            <Button :text="'Siguiente'" />
+          </div>
+          <div @click="$router.push('/step2')" class="step-buttons__button">
+            <Button :type="3" :text="'Atrás'" />
+          </div>
+        </div>
         </div>
     </div>
 </template>
@@ -26,12 +32,17 @@
 import Steps from '../components/Steps';
 import {db} from '~/plugins/firebase.js';
 export default {
+  head() {
+    return {
+      title: 'Paso 3'
+    }
+  },
   components: {
     Steps
   },
   data() {
     return {
-        tarifasList: [],
+      tarifasList: [],
     }
   },
   methods: {
@@ -68,11 +79,12 @@ export default {
     display: flex;
 
     .step-3{
-        width: 65%;
+        width: 70%;
         margin: 30px 0px;
+        padding: 0px 100px;
 
         .step-3__title {
-            width: 90%;
+            width: 100%;
             text-align: center;
             margin: 50px auto;
             font-weight: 700;
@@ -82,67 +94,49 @@ export default {
 
         .tarifa {
             text-align: justify;
-            width: 90%;
+            width: 100%;
             margin: 80px auto;
-            padding-left: 40px;
             color: #577294;
 
             .tarifa__title {
-                font-size: 20px;
+              font-size: 20px;
+              font-weight: 600;
             }
 
             .tarifa__description {
-                font-size: 18px;
-                margin: 6px 0px;
+              font-size: 18px;
+              margin: 6px 0px;
             }
 
             .tarifa-buttons {
                 display: flex;
                 flex-direction: column;
-                width: 96%;
+                width: 100%;
 
                 .tarifa__button {
                     font-size: 14px;
                     font-weight: 700;
                     color: #577294;
                     margin-top: 10px;
-                    height: 50px;
+                    height: 70px;
                     background-color: #fff;
-                    border: 1px solid #577294;
                     border-radius: 10px;
                     cursor: pointer;
                 }
             }
         }
         .step-buttons {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-    
-            .button-1 {
-                margin: 0px auto;
-                margin-bottom: 20px;
-                width: 25%;
-                padding: 12px 12px;
-                background-color: #0BC6FE;
-                border: 0px;
-                border-radius: 10px;
-                color: #fff;
-                font-size: 16px;
-                font-weight: 800;
-            }
-    
-            .button-2 {
-                margin: 0px auto;
-                margin-bottom: 0px;
-                width: 16%;
-                padding: 6px 10px;
-                background-color: transparent;
-                border: 0px;
-                color: #0BC6FE;
-                font-size: 16px;
-                font-weight: 800;
-            }
+          margin-top: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column; 
+
+          &__button {
+            width: 20%;
+            height: 50px;
+            margin: 10px;
+          } 
         }
     }
 }

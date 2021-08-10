@@ -9,8 +9,12 @@
           <div class="pago-box1">
             <h3 class="pago__title">¿Cómo prefieres abonar tu primer pago?</h3>
             <div class="pago-buttons">
-                <button v-on:click="onChangePago" value="Tarjeta de crédito/débito" class="pago__button">Tarjeta de crédito/débito (recomendado)</button>
-                <button v-on:click="onChangePago" value="Transferencia Bancaria" class="pago__button">Transferencia bancaria</button>
+                <div v-on:click="onChangePago('Tarjeta de crédito/débito')" value="Tarjeta de crédito/débito" class="pago__button">
+                  <Button :type="2" :text="'Tarjeta de crédito/débito (recomendado)'" />
+                </div>
+                <div v-on:click="onChangePago('Transferencia bancaria')" value="Transferencia Bancaria" class="pago__button">
+                  <Button :type="2" :text="'Transferencia bancaria'" />
+                </div>
             </div>
             <p class="pago__description">Detalle sobre forma de pago y proceso post pago</p>
           </div>
@@ -18,15 +22,19 @@
           <div class="pago-box1 box2">
             <h3 class="pago__title">¿Vienes recomendado por alguien?</h3>
             <div class="pago-buttons">
-                <button class="pago__button button2">Si</button>
-                <button class="pago__button button2">No</button>
+              <button class="pago__button button2">Si</button>
+              <button class="pago__button button2">No</button>
             </div>
             <p class="pago__description">Ver información legal</p>
           </div>
 
             <div class="step-buttons">
-              <button v-on:click="saveMatricula" class="button-1"><NuxtLink class="Link" to="/final">Enviar</NuxtLink></button>
-              <button class="button-2"><NuxtLink class="Link-two" to="/step5">Atrás</NuxtLink></button>
+              <div @click="saveMatricula" class="step-buttons__button">
+                <Button :text="'Siguiente'" />
+              </div>
+              <div @click="$router.push('/step5')" class="step-buttons__button">
+                <Button :type="3" :text="'Atrás'" />
+              </div>
             </div>
         </div>
       </div>
@@ -38,31 +46,36 @@ import {db} from '~/plugins/firebase.js';
 import { mapState } from 'vuex';
 
 export default {
+  head() {
+    return {
+      title: 'Paso 6'
+    }
+  },
   components: {
     Steps
   },
   data() {
     return {
-        matricula: {
-          rama: '',
-          provincia: '',
-          modalidad: '',
-          horario: '',
-          tarifa: '',
-          personalInfo: {
-              name: '',
-              dni: '',
-              movil: '',
-              email: ''
-          },
-          comunidad: '',
-          formaDePago: '',
-        }
+      matricula: {
+        rama: '',
+        provincia: '',
+        modalidad: '',
+        horario: '',
+        tarifa: '',
+        personalInfo: {
+          name: '',
+          dni: '',
+          movil: '',
+          email: ''
+        },
+        comunidad: '',
+        formaDePago: '',
+      }
     }
   },
   methods: {
-    onChangePago(ev) {
-      this.$store.commit('savePago', ev.target.value);
+    onChangePago(value) {
+      this.$store.dispatch('savePago', value);
     },
     saveMatricula() {
       this.matricula = {
@@ -82,6 +95,7 @@ export default {
       }
       console.log('MATRICULA', this.matricula);
       db.collection('matriculas').add(this.matricula);
+      this.$router.push('/Final')
     }
   },
 
@@ -99,12 +113,12 @@ export default {
     display: flex;
 
     .step-6{
-        width: 65%;
+        width: 70%;
         margin: 50px auto;
-        padding-left: 50px;
+        padding: 0px 100px;
 
         .step-6__title {
-            width: 80%;
+            width: 100%;
             margin: 30px auto;
             text-align: center;
             font-weight: 700;
@@ -114,77 +128,60 @@ export default {
 
         .pago-box1 {
             text-align: justify;
-            width: 90%;
+            width: 100%;
             margin: 60px auto;
 
             .pago__title {
-                font-size: 20px;
-                color: #577294;
-                font-weight: 500;
-                margin: 20px auto;
+              font-size: 20px;
+              color: #577294;
+              font-weight: 500;
+              margin: 20px auto;
             }
 
             .pago-buttons {
-                display: flex;
+              display: flex;
+              width: 100%;
 
-                .pago__button {
-                    background-color: transparent;
-                    width: 50%;
-                    padding: 14px 18px;
-                    color: #577294;
-                    font-size: 16px;
-                    border: 1px solid #577294;
-                    border-radius: 10px;
-                    margin-right: 50px;
-                }
+              .pago__button {
+                background-color: transparent;
+                width: 50%;
+                height: 50px;
+                color: #577294;
+                font-size: 16px;
+                border-radius: 10px;
+                margin-right: 50px;
+              }
 
-                .button2 {
-                    width: 20%;
-                    margin-right: 20px;
-                }
+              .button2 {
+                width: 20%;
+                margin-right: 20px;
+              }
             }
 
             .pago__description {
-                margin-top: 20px;
-                font-size: 20px;
-                font-weight: 500;
-                color: #0BC6FE;
+              margin-top: 20px;
+              font-size: 20px;
+              font-weight: 500;
+              color: #0BC6FE;
             }
         }
 
         .box2 {
-            margin-top: 60px;
+          margin-top: 60px;
         }
 
         .step-buttons {
-            margin-top: 60px;
-            display: flex;
-            flex-direction: column;
-    
-            .button-1 {
-                margin: 0px auto;
-                margin-bottom: 20px;
-                width: 25%;
-                padding: 12px 10px;
-                background-color: #0BC6FE;
-                border: 0px;
-                border-radius: 10px;
-                color: #fff;
-                font-size: 16px;
-                font-weight: 800;
-            }
-    
-            .button-2 {
-                margin: 0px auto;
-                margin-bottom: 0px;
-                width: 16%;
-                padding: 8px 12px;
-                background-color: transparent;
-                border: 0px;
-                color: #0BC6FE;
-                font-size: 16px;
-                font-weight: 800;
-            }
+          margin-top: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column; 
+
+          &__button {
+            width: 20%;
+            height: 50px;
+            margin: 10px;
+          } 
         }
     }
 }
