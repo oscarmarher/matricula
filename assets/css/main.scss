@@ -1,0 +1,21 @@
+@import './imports';
+
+:root {
+  --color: #243746;
+  --color-primary: #158876;
+  --color-secondary: #0e2233;
+  --bg: #131f2c;
+  --bg-secondary: $blue;
+  --bg-third: $dark-blue;
+  --border-color: #ddd;
+}
+  
+.light-mode {
+  --color: #ebf4f1;
+  --color-primary: #41b38a;
+  --color-secondary: #fdf9f3;
+  --bg: $white;
+  --bg-secondary: $cloud_blue;
+  --bg-third: $sky_blue;
+  --border-color: #0d2538;
+}
