@@ -26,6 +26,9 @@ methods: {
 </script>
 
 <style lang="scss">
+.input {
+  outline: none;
+}
 .inputPrincipal {
     width: 100%;
     height: 100%;

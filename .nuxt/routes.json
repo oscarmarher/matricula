@@ -3,48 +3,56 @@
     "name": "Final",
     "path": "/Final",
     "component": "/home/oscar/magister/magister-matricula/pages/Final.vue",
-    "chunkName": "pages/Final"
+    "chunkName": "pages/Final",
+    "_name": "_10988fc4"
   },
   {
     "name": "Step1",
     "path": "/Step1",
     "component": "/home/oscar/magister/magister-matricula/pages/Step1.vue",
-    "chunkName": "pages/Step1"
+    "chunkName": "pages/Step1",
+    "_name": "_301b7a0d"
   },
   {
     "name": "Step2",
     "path": "/Step2",
     "component": "/home/oscar/magister/magister-matricula/pages/Step2.vue",
-    "chunkName": "pages/Step2"
+    "chunkName": "pages/Step2",
+    "_name": "_3029918e"
   },
   {
     "name": "Step3",
     "path": "/Step3",
     "component": "/home/oscar/magister/magister-matricula/pages/Step3.vue",
-    "chunkName": "pages/Step3"
+    "chunkName": "pages/Step3",
+    "_name": "_3037a90f"
   },
   {
     "name": "Step4",
     "path": "/Step4",
     "component": "/home/oscar/magister/magister-matricula/pages/Step4.vue",
-    "chunkName": "pages/Step4"
+    "chunkName": "pages/Step4",
+    "_name": "_3045c090"
   },
   {
     "name": "Step5",
     "path": "/Step5",
     "component": "/home/oscar/magister/magister-matricula/pages/Step5.vue",
-    "chunkName": "pages/Step5"
+    "chunkName": "pages/Step5",
+    "_name": "_3053d811"
   },
   {
     "name": "Step6",
     "path": "/Step6",
     "component": "/home/oscar/magister/magister-matricula/pages/Step6.vue",
-    "chunkName": "pages/Step6"
+    "chunkName": "pages/Step6",
+    "_name": "_3061ef92"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/home/oscar/magister/magister-matricula/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_3af2f19a"
   }
 ]

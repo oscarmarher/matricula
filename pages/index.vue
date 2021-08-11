@@ -85,4 +85,126 @@ export default {
         }
     }
 }
+
+@media screen and (min-width: 700px) and (max-width: 1100px) {
+.home {
+    padding: 0px 20px;
+    background-color: $background;
+    height: 100vh;
+    color: $white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__box {
+        
+    }
+
+    &__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+        color: $white;
+
+        &__text {
+            font-size: 80px;
+            display: flex;
+            align-items: flex-end;
+            margin-left: 8px;
+            color: $white;
+            font-weight: 800;
+        }
+
+        &__img {
+            width: 18%;
+        }
+    }
+
+    &__desc {
+        font-size: 34px;
+        margin-bottom: 30px;
+    }
+
+    &__description {
+        width: 70%;
+        margin: 0px auto;
+        font-size: 28px;
+        margin-bottom: 80px;
+        font-weight: 500;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+
+        &__button {
+            width: 50%;
+            height: 60px;
+        }
+    }
+}
+}
+
+@media screen and (max-width: 700px) {
+.home {
+    padding: 0px 20px;
+    background-color: $background;
+    height: 100vh;
+    color: $white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__box {
+        
+    }
+
+    &__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+        color: $white;
+
+        &__text {
+            font-size: 40px;
+            display: flex;
+            align-items: flex-end;
+            margin-left: 4px;
+            color: $white;
+            font-weight: 800;
+        }
+
+        &__img {
+            width: 12%;
+        }
+    }
+
+    &__desc {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    &__description {
+        width: 70%;
+        margin: 0px auto;
+        font-size: 18px;
+        margin-bottom: 60px;
+        font-weight: 500;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+
+        &__button {
+            width: 40%;
+            height: 50px;
+        }
+    }
+}
+}
 </style>
