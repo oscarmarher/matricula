@@ -34,9 +34,9 @@
         </div>
       </div>
     </div>
-
+    <div v-if="error" class="error">{{error}}</div>
     <div class="step-buttons">
-      <div @click="$router.push('/step5')" class="step-buttons__button">
+      <div @click="nextPage" class="step-buttons__button">
         <Button :text="'Siguiente'" />
       </div>
       <div @click="$router.push('/step3')" class="step-buttons__button">
@@ -52,6 +52,12 @@ import Steps from '../components/Steps';
 import {db} from '~/plugins/firebase.js';
 import InputPrincipal from '../components/InputPrincipal.vue';
 export default {
+  mounted() {
+    let step = this.$store.getters['getStep'];
+    if(step < this.step) {
+      window.history.back()
+    }
+  },
   head() {
     return {
       title: 'Paso 4'
@@ -63,11 +69,30 @@ export default {
   },
   data() {
     return {
+      step: 4,
       tarifasList: [],
       screen: window.screen,
+      name: null,
+      dni: null,
+      phone: null,
+      email: null,
+      error: null,
     }
   },
   methods: {
+    nextPage() {
+      let personalInfo = this.$store.getters['getPersonalInfo'];
+      this.name = personalInfo.name;
+      this.dni = personalInfo.dni;
+      this.phone = personalInfo.movil;
+      this.email = personalInfo.email;
+      if(this.name && this.dni && this.phone && this.email) {
+        this.$store.dispatch('saveStep', this.step+1)
+        this.$router.push('/step5')
+      }else {
+        this.error = 'Completa todos los campos'
+      }
+    },
     onChangeName(value) {
       this.$store.dispatch('savePersonalInfoName', value);
     },
@@ -88,6 +113,12 @@ export default {
 </script>
 
 <style lang="scss">
+.error {
+  color: red;
+  text-align: center;
+  font-weight: 400;
+  margin: 10px 0px;
+}
 .step-buttons {
   margin-top: 50px;
   display: flex;

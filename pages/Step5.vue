@@ -40,9 +40,9 @@
         </div>
       </div>
     </div>
-
+    <div v-if="error" class="error">{{error}}</div>
     <div class="step-buttons">
-      <div @click="$router.push('/step6')" class="step-buttons__button">
+      <div @click="nextPage" class="step-buttons__button">
         <Button :text="'Siguiente'" />
       </div>
       <div @click="$router.push('/step4')" class="step-buttons__button">
@@ -57,6 +57,12 @@
 import Steps from '../components/Steps';
 import {db} from '~/plugins/firebase.js';
 export default {
+  mounted() {
+    let step = this.$store.getters['getStep'];
+    if(step < this.step) {
+      window.history.back()
+    }
+  },
   head() {
     return {
       title: 'Paso 5'
@@ -67,11 +73,23 @@ export default {
   },
   data() {
     return {
+      step: 5,
       comunidadesList: [],
       screen: window.screen,
+      comunidad: null,
+      error: null,
     }
   },
   methods: {
+    nextPage() {
+      this.comunidad = this.$store.getters['getComunidad'];
+      if(this.comunidad) {
+        this.$store.dispatch('saveStep', this.step+1)
+        this.$router.push('/step6')
+      }else {
+        this.error = 'Completa todos los campos'
+      }
+    },
     onChangeComunidad(value) {
       this.$store.dispatch('saveComunidad', value);
     },
@@ -85,6 +103,7 @@ export default {
         })
         });
         console.log('COMUNIDADES', this.comunidadesList);
+        this.comunidadesList.unshift('')
       } catch (error) {
         console.log(error);
       }
@@ -98,6 +117,13 @@ export default {
 </script>
 
 <style lang="scss">
+.error {
+  color: red;
+  text-align: center;
+  font-weight: 400;
+  margin: 10px 0px;
+}
+
 .step-buttons {
   margin-top: 50px;
   display: flex;

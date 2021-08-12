@@ -30,9 +30,9 @@
         </div>
         <p class="step6__content__description">Ver información legal</p>
       </div>
-
+      <div v-if="error" class="error">{{error}}</div>
       <div class="step-buttons">
-        <div @click="saveMatricula" class="step-buttons__button">
+        <div @click="nextPage" class="step-buttons__button">
           <Button :text="'Siguiente'" />
         </div>
         <div @click="$router.push('/step5')" class="step-buttons__button">
@@ -49,6 +49,12 @@ import {db} from '~/plugins/firebase.js';
 import { mapState } from 'vuex';
 
 export default {
+  mounted() {
+    let step = this.$store.getters['getStep'];
+    if(step < this.step) {
+      window.history.back()
+    }
+  },
   head() {
     return {
       title: 'Paso 6'
@@ -59,6 +65,9 @@ export default {
   },
   data() {
     return {
+      step: 6,
+      pago: null,
+      error: null,
       screen: window.screen,
       pay: null,
       matricula: {
@@ -79,6 +88,15 @@ export default {
     }
   },
   methods: {
+    nextPage() {
+      this.pago = this.$store.getters['getPago'];
+      if(this.pago) {
+        this.saveMatricula()
+        this.$router.push('/Final')
+      }else {
+        this.error = 'Completa todos los campos'
+      }
+    },
     changePay(value) {
       this.pay = value;
     },
@@ -114,6 +132,12 @@ export default {
 </script>
 
 <style lang="scss">
+.error {
+  color: red;
+  text-align: center;
+  font-weight: 400;
+  margin: 10px 0px;
+}
 .box2 {
   margin-top: 60px;
 }

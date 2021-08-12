@@ -12,9 +12,13 @@ const state = () => ({
   },
   comunidad: null,
   formaDePago: null,
+  step: null,
 });
 
 const mutations = {
+  saveStep(state, datos) {
+    state.step = datos;
+  },
   saveRama(state, datos) {
     state.rama = datos;
   },
@@ -51,6 +55,9 @@ const mutations = {
 };
 
 const actions = {
+  saveStep({commit}, value) {
+    commit('saveStep', value);
+  },
   saveRama({commit}, value) {
     commit('saveRama', value);
   },
@@ -87,6 +94,12 @@ const actions = {
 }
 
 const getters = {
+  getStep(state) {
+    return state.step;
+  },
+  getPersonalInfo(state) {
+    return state.personalInfo;
+  },
   getRama(state) {
     return state.rama;
   },

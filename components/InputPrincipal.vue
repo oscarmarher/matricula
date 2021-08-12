@@ -26,6 +26,9 @@ methods: {
 </script>
 
 <style lang="scss">
+@import '~/assets/css/imports';
+::-webkit-input-placeholder { color: $silver; } 
+
 .input {
   outline: none;
 }
@@ -38,7 +41,7 @@ methods: {
         border: 1px solid #577294;
         border-radius: 10px;
         height: 100%;
-        color: silver;
+        color: $greyDark;
         font-size: 110%;
         padding-left: 10px;
     }

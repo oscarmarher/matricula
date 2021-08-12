@@ -40,7 +40,8 @@
             <Button :type="2" :text="'Material, mes a mes'" />
           </div>
         </div>
-        <div @click="$router.push('/step2')" class="step1__buttons__button">
+        <div v-if="error" class="error">{{error}}</div>
+        <div @click="nextPage" class="step1__buttons__button">
           <Button :text="'Siguiente'" />
         </div>
       </div>
@@ -56,6 +57,7 @@ import {db} from '~/plugins/firebase.js';
 export default {
   mounted() {
     this.screen = window.screen.width;
+    //this.$store.dispatch('saveStep', this.step)
   },
   head() {
     return {
@@ -69,14 +71,27 @@ export default {
   },
   data() {
     return {
+      step: 1,
       screen: null,
       rama: '',
       provincia: '',
       ramasList: [],
       provinciasList: [],
+      error: null,
     }
   },
   methods: {
+    nextPage() {
+      this.rama = this.$store.getters['getRama'];
+      this.provincia = this.$store.getters['getProvincia']
+      console.log('RAMA Y PROVINCIA', this.rama, this.provincia)
+      if(this.rama && this.provincia) {
+        this.$store.dispatch('saveStep', this.step+1)
+        this.$router.push('/step2')
+      }else {
+        this.error = 'Completa todos los campos'
+      }
+    },
     onChangeRama(value) {
       this.$store.dispatch('saveRama', value);
     },
@@ -94,9 +109,10 @@ export default {
         })
         });
         console.log('RAMAS', this.ramasList);
-    } catch (error) {
+        this.ramasList.unshift('')
+      } catch (error) {
         console.log(error);
-    }
+      }
     },
     async getProvincias() {
       try {
@@ -107,6 +123,7 @@ export default {
         this.provinciasList.push(element);
         })
         });
+        this.provinciasList.unshift('')
         console.log('PROVINCIAS', this.provinciasList);
     } catch (error) {
         console.log(error);
@@ -123,6 +140,13 @@ export default {
 
 <style lang="scss">
 @import '~/assets/css/imports';
+.error {
+  color: red;
+  text-align: center;
+  font-weight: 400;
+  margin: 10px 0px;
+}
+
 .step-buttons {
   margin-top: 50px;
   display: flex;

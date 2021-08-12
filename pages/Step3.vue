@@ -9,14 +9,14 @@
         <h3 class="step3__content__tarifa__title">Tarifas</h3>
         <p class="step3__content__tarifa__description">(Selecciona una opción)</p>
         <div class="step3__content__tarifa__buttons" v-if="tarifasList">
-          <div v-on:click="onChangeTarifa && changeTarifa(index)" v-for="(tarifa, index) in tarifasList" :key='index' :value="tarifa" class="step3__content__tarifa__button">
+          <div v-on:click="(e) => onChangeTarifa(e) & changeTarifa(index)" v-for="(tarifa, index) in tarifasList" :key='index' :value="tarifa" class="step3__content__tarifa__button">
             <Button :index="index" :type="(valueTarifa == index) ? 4 : 2" :text="tarifa" />
           </div>
         </div>
       </div>
-
+      <div v-if="error" class="error">{{error}}</div>
       <div class="step-buttons">
-        <div @click="$router.push('/step4')" class="step-buttons__button">
+        <div @click="nextPage" class="step-buttons__button">
           <Button :text="'Siguiente'" />
         </div>
         <div @click="$router.push('/step2')" class="step-buttons__button">
@@ -31,6 +31,12 @@
 import Steps from '../components/Steps';
 import {db} from '~/plugins/firebase.js';
 export default {
+  mounted() {
+    let step = this.$store.getters['getStep'];
+    if(step < this.step) {
+      window.history.back()
+    }
+  },
   head() {
     return {
       title: 'Paso 3'
@@ -41,17 +47,31 @@ export default {
   },
   data() {
     return {
+      step: 3,
       screen: window.screen,
       tarifasList: [],
       valueTarifa: null,
+      tatifa: null,
+      error: null,
     }
   },
   methods: {
+    nextPage() {
+      this.tarifa = this.$store.getters['getTarifa']
+      console.log('TARIFA', this.tarifa)
+      if(this.tarifa) {
+        this.$store.dispatch('saveStep', this.step+1)
+        this.$router.push('/step4')
+      }else {
+        this.error = 'Completa todos los campos'
+      }
+    },
     changeTarifa(valor) {
       this.valueTarifa = valor;
     },
     onChangeTarifa(e) {
       this.$store.dispatch('saveTarifa', e.target.innerText);
+      console.log('TAR', this.$store.getters['getTarifa'])
     },
     async getTarifas() {
       try {
@@ -76,6 +96,12 @@ export default {
 </script>
 
 <style lang="scss">
+.error {
+  color: red;
+  text-align: center;
+  font-weight: 400;
+  margin: 10px 0px;
+}
 .step-buttons {
   margin-top: 50px;
   display: flex;
